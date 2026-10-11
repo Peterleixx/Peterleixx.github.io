@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Peter Lei · 雷翔兮 — AI Native Engineer & Tech Lead</title>
+<meta name="description" content="Peter Lei (雷翔兮) — AI-native application & platform tech lead. Agent harnesses, eval loops, AI coding workflows and the infrastructure underneath.">
+<meta name="theme-color" content="#09090b">
+<meta property="og:title" content="Peter Lei · 雷翔兮">
+<meta property="og:description" content="A technical builder who designs reliable systems, understands user problems, and validates products.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2309090b'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='Georgia,serif' font-size='30' fill='%23e8e8ea'%3EP%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500&text=%E3%80%81%E3%80%82%E4%B8%BA%E4%BA%A5%E4%BF%84%E5%85%83%E5%85%AE%E5%85%B1%E5%8D%8E%E5%8F%AF%E5%9B%9B%E5%A4%A7%E5%AD%A6%E5%AE%9E%E5%B7%9E%E5%BB%BA%E5%BC%8F%E6%8A%80%E6%8C%AF%E6%9E%84%E7%82%B9%E7%90%86%E7%9A%84%E7%9C%9F%E7%A7%91%E7%AB%8B%E7%AC%AC%E7%B3%BB%E7%BB%9F%E7%BF%94%E8%8C%83%E8%A7%A3%E8%AF%81%E9%97%AE%E9%9B%B7%E9%9D%A0%E9%A2%98%E9%AA%8C&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#09090b; --bg-2:#0e0e11; --panel:rgba(255,255,255,.025); --line:rgba(255,255,255,.07); --line-2:rgba(255,255,255,.12);
+  --fg:#ededef; --fg-2:#a1a1aa; --fg-3:#6b6b74; --accent:#a5b4fc; --accent-2:#c4b5fd; --live:#6ee7b7;
+  --sans:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --serif:"Instrument Serif",ui-serif,Georgia,"Noto Serif SC","Songti SC",serif;
+  --zh:"Noto Serif SC","Songti SC","STSong",serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --max:1120px; --r:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.65 var(--sans);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;font-feature-settings:"cv11","ss01"}
+::selection{background:rgba(165,180,252,.28);color:#fff}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.02em}
+
+/* ambient background */
+.ambient{position:absolute;inset:0 0 auto 0;height:980px;pointer-events:none;overflow:hidden;z-index:0}
+.ambient::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse 70% 60% at 50% 0%,#000 30%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 0%,#000 30%,transparent 75%);opacity:.55}
+.ambient::after{content:"";position:absolute;left:50%;top:-340px;width:1100px;height:720px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(129,140,248,.22),rgba(167,139,250,.08) 55%,transparent 75%);filter:blur(20px)}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* nav */
+header.nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);background:rgba(9,9,11,.62);border-bottom:1px solid transparent;transition:border-color .3s}
+header.nav.scrolled{border-bottom-color:var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:500;font-size:14.5px;letter-spacing:-.01em}
+.brand .mark{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:linear-gradient(145deg,#1c1c22,#111114);border:1px solid var(--line-2);font-family:var(--serif);font-size:16px;color:var(--fg)}
+.brand .zh{font-family:var(--zh);color:var(--fg-3);font-size:13px;font-weight:500}
+.nav-links{display:flex;gap:4px;font-size:13.5px;color:var(--fg-2)}
+.nav-links a{padding:6px 12px;border-radius:999px;transition:color .2s,background .2s}
+.nav-links a:hover{color:var(--fg);background:rgba(255,255,255,.05)}
+.nav-cta{font-size:13px;padding:7px 14px;border-radius:999px;border:1px solid var(--line-2);color:var(--fg);transition:background .2s,border-color .2s}
+.nav-cta:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2)}
+
+/* hero */
+.hero{position:relative;z-index:1;padding:112px 0 8px}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:6px 14px 6px 10px;border:1px solid var(--line-2);border-radius:999px;background:rgba(255,255,255,.03);font-size:12.5px;color:var(--fg-2)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--live);box-shadow:0 0 0 0 rgba(110,231,183,.6);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(110,231,183,.55)}70%{box-shadow:0 0 0 8px rgba(110,231,183,0)}100%{box-shadow:0 0 0 0 rgba(110,231,183,0)}}
+.hero h1{margin-top:28px;font-weight:500;font-size:clamp(44px,7.2vw,88px);line-height:1.02;letter-spacing:-.045em;max-width:13ch}
+.hero h1 em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.02em;background:linear-gradient(100deg,#e0e7ff 0%,var(--accent) 45%,var(--accent-2) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.06em}
+.hero .lede{margin-top:28px;max-width:600px;font-size:18px;line-height:1.7;color:var(--fg-2)}
+.hero .lede strong{color:var(--fg);font-weight:500}
+.hero .zh-line{margin-top:18px;font-family:var(--zh);font-size:15px;color:var(--fg-3);letter-spacing:.08em}
+.ctas{margin-top:40px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 20px;border-radius:999px;font-size:14.5px;font-weight:500;transition:transform .2s ease,background .2s,border-color .2s,box-shadow .2s}
+.btn svg{width:16px;height:16px}
+.btn-primary{background:var(--fg);color:#0a0a0c;box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 8px 30px -8px rgba(165,180,252,.45)}
+.btn-primary:hover{transform:translateY(-1px);background:#fff}
+.btn-ghost{border:1px solid var(--line-2);color:var(--fg);background:rgba(255,255,255,.02)}
+.btn-ghost:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.22);transform:translateY(-1px)}
+.btn .arrow{transition:transform .2s}
+.btn:hover .arrow{transform:translateX(3px)}
+
+
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:56px;align-items:center}
+.trace{position:relative;border:1px solid var(--line-2);border-radius:16px;background:linear-gradient(180deg,rgba(20,20,26,.9),rgba(12,12,15,.9));box-shadow:0 40px 120px -40px rgba(129,140,248,.35),0 0 0 1px rgba(255,255,255,.02) inset;font-family:var(--mono);font-size:12px;color:var(--fg-2);overflow:hidden;animation:float 9s ease-in-out infinite}
+.trace::before{content:"";position:absolute;inset:-1px;border-radius:16px;padding:1px;background:linear-gradient(140deg,rgba(165,180,252,.45),transparent 35%,transparent 70%,rgba(110,231,183,.25));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+@keyframes float{50%{transform:translateY(-6px)}}
+.trace-h{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);color:var(--fg-3);font-size:11px}
+.trace-h .live{display:inline-flex;align-items:center;gap:7px;color:var(--live)}
+.trace-h .live .dot{width:6px;height:6px}
+.trace-b{padding:18px}
+.trace .brief{color:var(--fg-3);font-size:11px}
+.trace .brief b{display:block;margin-top:4px;color:var(--fg);font-weight:400;font-size:12.5px}
+.tr{display:grid;grid-template-columns:20px 1fr auto;gap:10px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--line)}
+.tr:last-of-type{border-bottom:0}
+.tr .ix{color:var(--fg-3);font-size:10.5px}
+.tr .r{font-size:10.5px;color:var(--fg-3)}
+.tr .r.ok{color:var(--live)}
+.tr .r.ac{color:var(--accent)}
+.tr.cur{color:var(--fg)}
+.trace .lines{margin-top:16px}
+.loopnote{margin-top:14px;padding:10px 12px;border-radius:8px;background:rgba(165,180,252,.06);border:1px solid rgba(165,180,252,.16);color:var(--fg-2);font-size:11px;display:flex;gap:8px;align-items:center}
+.loopnote span{color:var(--accent)}
+.trace-cap{margin-top:12px;font-family:var(--mono);font-size:10.5px;color:var(--fg-3);text-align:center}
+@media (max-width:960px){.hero-grid{grid-template-columns:1fr}.hero-side{display:none}}
+
+/* metrics */
+.metrics{margin-top:88px;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metric{padding:28px 24px 26px;border-left:1px solid var(--line)}
+.metric:first-child{border-left:0;padding-left:0}
+.metric .v{font-size:30px;font-weight:500;letter-spacing:-.03em;line-height:1.1}
+.metric .v small{font-size:15px;color:var(--fg-2);font-weight:400;letter-spacing:0;margin-left:4px}
+.metric .k{margin-top:8px;font-size:13px;color:var(--fg-3);line-height:1.5}
+
+/* sections */
+section{position:relative;z-index:1}
+.sec{padding:120px 0 0}
+.sec-head{display:grid;grid-template-columns:220px 1fr;gap:40px;margin-bottom:56px;align-items:start}
+.eyebrow{font-family:var(--mono);font-size:12px;color:var(--fg-3);letter-spacing:.06em;text-transform:uppercase;padding-top:10px;display:flex;gap:10px;align-items:center}
+.eyebrow span{color:var(--accent)}
+.sec-head h2{font-size:clamp(30px,3.6vw,44px);font-weight:500;letter-spacing:-.035em;line-height:1.12;max-width:20ch}
+.sec-head h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--fg-2)}
+.sec-head p{margin-top:16px;color:var(--fg-2);max-width:58ch}
+
+/* capabilities */
+.caps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.cap{background:var(--bg);padding:28px 26px 30px;transition:background .3s}
+.cap:hover{background:#0d0d10}
+.cap .n{font-family:var(--mono);font-size:11.5px;color:var(--fg-3)}
+.cap h3{margin-top:18px;font-size:16.5px;font-weight:500;letter-spacing:-.01em}
+.cap p{margin-top:8px;font-size:14px;color:var(--fg-2);line-height:1.6}
+
+/* work */
+.work{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.card{position:relative;grid-column:span 3;border:1px solid var(--line);border-radius:var(--r);background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012));padding:32px 32px 30px;overflow:hidden;transition:border-color .3s,transform .3s}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(500px circle at var(--mx,50%) var(--my,-20%),rgba(165,180,252,.09),transparent 45%);opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover{border-color:var(--line-2)}
+.card:hover::before{opacity:1}
+.card.feature{grid-column:span 6;display:grid;grid-template-columns:1.15fr 1fr;gap:48px;padding:40px}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.tag{font-family:var(--mono);font-size:11.5px;color:var(--fg-3);letter-spacing:.02em;white-space:nowrap}
+.role{font-family:var(--mono);font-size:11px;flex-shrink:0;color:var(--accent);border:1px solid rgba(165,180,252,.25);background:rgba(165,180,252,.06);padding:3px 9px;border-radius:999px;white-space:nowrap}
+.card h3{margin-top:22px;font-size:24px;font-weight:500;letter-spacing:-.025em;line-height:1.2}
+.card.feature h3{font-size:32px}
+.card.feature>div{min-width:0}
+.card li,.card .desc{overflow-wrap:break-word}
+.card.feature.even{grid-template-columns:1fr 1fr}
+.card .ul-top{margin-top:0}
+.card .desc{margin-top:12px;color:var(--fg-2);font-size:15px;line-height:1.65}
+.card ul{list-style:none;margin-top:20px;display:grid;gap:10px}
+.card li{position:relative;padding-left:18px;font-size:14px;color:var(--fg-2);line-height:1.6}
+.card li::before{content:"";position:absolute;left:0;top:.72em;width:8px;height:1px;background:var(--fg-3)}
+.chips{margin-top:24px;display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:var(--mono);font-size:11px;color:var(--fg-2);padding:4px 9px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+.outcome{margin-top:22px;padding-top:18px;border-top:1px dashed var(--line-2);font-size:14px;color:var(--fg)}
+.outcome b{font-weight:500;color:#fff}
+
+/* pipeline viz */
+.viz{position:relative;border:1px solid var(--line);border-radius:12px;background:#0b0b0e;padding:22px;font-family:var(--mono);font-size:12px;color:var(--fg-2);align-self:stretch;display:flex;flex-direction:column}
+.viz-head{display:flex;justify-content:space-between;color:var(--fg-3);font-size:11px;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.viz-head i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#26262b;margin-right:5px}
+.flow{display:grid;gap:8px;flex:1;align-content:center}
+.step{display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;padding:10px 12px;border-radius:8px;border:1px solid transparent;background:rgba(255,255,255,.02)}
+.step .ix{color:var(--fg-3)}
+.step .st{font-size:10.5px;color:var(--fg-3)}
+.step.ok .st{color:var(--live)}
+.step.run{border-color:rgba(165,180,252,.22);background:rgba(165,180,252,.05)}
+.step.run .st{color:var(--accent)}
+.step.run .st::after{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-left:6px;animation:blink 1.2s infinite}
+@keyframes blink{50%{opacity:.2}}
+.viz-foot{margin-top:14px;color:var(--fg-3);font-size:10.5px}
+
+/* now */
+.now{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:radial-gradient(800px 400px at 100% 0%,rgba(110,231,183,.06),transparent 60%),linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01))}
+.now-grid{display:grid;grid-template-columns:1.3fr 1fr}
+.now-main{padding:44px;border-right:1px solid var(--line)}
+.now-main .status{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11.5px;color:var(--live)}
+.now-main h3{margin-top:20px;font-size:30px;font-weight:500;letter-spacing:-.03em;line-height:1.15}
+.now-main h3 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--fg-2)}
+.now-main p{margin-top:14px;color:var(--fg-2);font-size:15.5px;max-width:52ch}
+.road{margin-top:32px;display:grid;gap:0;border-left:1px solid var(--line-2);margin-left:4px}
+.road div{position:relative;padding:0 0 18px 22px;font-size:14px;color:var(--fg-2)}
+.road div:last-child{padding-bottom:0}
+.road div::before{content:"";position:absolute;left:-5px;top:7px;width:9px;height:9px;border-radius:50%;background:var(--bg);border:1px solid var(--fg-3)}
+.road div.active::before{background:var(--live);border-color:var(--live);box-shadow:0 0 12px rgba(110,231,183,.6)}
+.road div b{color:var(--fg);font-weight:500}
+.road .mono{display:block;color:var(--fg-3);font-size:11px;margin-bottom:2px}
+.now-side{padding:44px;display:flex;flex-direction:column;gap:28px}
+.now-side h4{font-family:var(--mono);font-size:11.5px;color:var(--fg-3);font-weight:400;letter-spacing:.06em;text-transform:uppercase}
+.now-side .item h5{margin-top:10px;font-size:17px;font-weight:500;letter-spacing:-.01em}
+.now-side .item p{margin-top:6px;font-size:14px;color:var(--fg-2)}
+.quote{margin-top:auto;padding-top:24px;border-top:1px solid var(--line);font-family:var(--serif);font-style:italic;font-size:22px;line-height:1.35;color:var(--fg)}
+.quote .zh{display:block;margin-top:10px;font-family:var(--zh);font-style:normal;font-size:13.5px;color:var(--fg-3);letter-spacing:.12em}
+
+/* repos */
+.repos{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.repo{display:block;border:1px solid var(--line);border-radius:14px;padding:24px 26px;transition:border-color .25s,background .25s,transform .25s}
+.repo:hover{border-color:var(--line-2);background:rgba(255,255,255,.02);transform:translateY(-2px)}
+.repo-top{display:flex;justify-content:space-between;align-items:center;color:var(--fg-3)}
+.repo-top svg{width:16px;height:16px}
+.repo h3{margin-top:14px;font-family:var(--mono);font-size:15px;font-weight:500;color:var(--fg);display:flex;align-items:center;gap:8px}
+.repo h3 .ext{color:var(--fg-3);transition:transform .25s,color .25s}
+.repo:hover h3 .ext{transform:translate(2px,-2px);color:var(--accent)}
+.repo p{margin-top:8px;font-size:14px;color:var(--fg-2)}
+.repo .lang{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px}
+.repo .lang i{width:8px;height:8px;border-radius:50%}
+
+/* timeline */
+.tl{border-top:1px solid var(--line)}
+.tl-row{display:grid;grid-template-columns:220px 1fr auto;gap:40px;padding:30px 0;border-bottom:1px solid var(--line);align-items:baseline;transition:background .3s}
+.tl-row .when{font-family:var(--mono);font-size:12.5px;color:var(--fg-3)}
+.tl-row h3{font-size:19px;font-weight:500;letter-spacing:-.015em}
+.tl-row h3 .zh{font-family:var(--zh);font-size:14px;color:var(--fg-3);margin-left:10px;font-weight:500}
+.tl-row .pos{margin-top:4px;color:var(--fg-2);font-size:14.5px}
+.tl-row .sum{margin-top:12px;color:var(--fg-3);font-size:14px;max-width:62ch;line-height:1.65}
+.tl-row .chipset{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;max-width:240px}
+
+/* edu */
+.edu{display:grid;grid-template-columns:220px 1fr;gap:40px;padding:36px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.edu h3{font-size:22px;font-weight:500;letter-spacing:-.02em}
+.edu .pos{margin-top:4px;color:var(--fg-2)}
+.edu .sum{margin-top:14px;font-size:14px;color:var(--fg-3)}
+
+/* contact */
+.contact{padding:160px 0 80px;text-align:center}
+.contact h2{font-size:clamp(40px,6.4vw,80px);font-weight:500;letter-spacing:-.045em;line-height:1.04}
+.contact h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--fg-2)}
+.contact p{margin:22px auto 0;max-width:52ch;color:var(--fg-2);font-size:16.5px}
+.contact .ctas{justify-content:center}
+.mail{margin-top:28px;font-family:var(--mono);font-size:13px;color:var(--fg-3)}
+.mail a{border-bottom:1px solid var(--line-2);padding-bottom:2px;transition:color .2s,border-color .2s}
+.mail a:hover{color:var(--fg);border-color:var(--fg-2)}
+footer{border-top:1px solid var(--line);padding:28px 0 40px;position:relative;z-index:1}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:20px;color:var(--fg-3);font-size:13px}
+.foot nav{display:flex;gap:20px}
+.foot a:hover{color:var(--fg)}
+
+/* reveal */
+.js .rv{opacity:0;transform:translateY(14px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.js .rv{opacity:1;transform:none}}
+
+/* responsive */
+@media (max-width:960px){
+  .card.feature,.card.feature.even{grid-template-columns:1fr;gap:32px}
+  .now-grid{grid-template-columns:1fr}
+  .now-main{border-right:0;border-bottom:1px solid var(--line)}
+  .caps{grid-template-columns:1fr 1fr}
+  .sec-head,.tl-row,.edu{grid-template-columns:160px 1fr}
+  .tl-row .chipset{display:none}
+}
+@media (max-width:720px){
+  .wrap{padding:0 20px}
+  .nav-links{display:none}
+  .brand .zh{display:none}
+  .hero{padding:64px 0 8px}
+  .hero h1{font-size:clamp(40px,11.5vw,56px)}
+  .hero .lede{font-size:16.5px}
+  .metrics{grid-template-columns:1fr 1fr;margin-top:64px}
+  .metric{padding:22px 16px 22px 0;border-left:0}
+  .metric:nth-child(2n){padding-left:16px;border-left:1px solid var(--line)}
+  .metric:nth-child(n+3){border-top:1px solid var(--line)}
+  .metric .v{font-size:24px}
+  .sec{padding-top:88px}
+  .sec-head,.tl-row,.edu{grid-template-columns:1fr;gap:12px}
+  .sec-head{margin-bottom:36px}
+  .eyebrow{padding-top:0}
+  .caps{grid-template-columns:1fr}
+  .work{grid-template-columns:1fr}
+  .card,.card.feature{grid-column:auto;padding:26px 22px}
+  .card.feature h3{font-size:26px}
+  .card h3{font-size:21px}
+  .card-top{flex-wrap:wrap;gap:10px}
+  .now-main,.now-side{padding:28px 22px}
+  .now-main h3{font-size:25px}
+  .repos{grid-template-columns:1fr}
+  .tl-row{padding:24px 0}
+  .contact{padding:112px 0 64px}
+  .foot{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div class="ambient" aria-hidden="true"></div>
+
+<header class="nav" id="top">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="Peter Lei — home"><span class="mark">P</span>Peter Lei <span class="zh">雷翔兮</span></a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#work">Work</a><a href="#now">Now</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
+    </nav>
+    <a class="nav-cta" href="mailto:peterlei001123@gmail.com">Get in touch</a>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid"><div class="hero-main">
+    <a class="pill rv" href="#now"><span class="dot"></span>Now building a local-first Personal Agent</a>
+    <h1 class="rv" style="--d:.06s">Building <em>reliable</em> AI systems that ship.</h1>
+    <p class="lede rv" style="--d:.12s">I’m <strong>Peter Lei</strong> — an AI-native application &amp; platform tech lead at <strong>4Paradigm</strong>. A technical builder who designs reliable systems, understands user problems, and validates products: from agent harnesses and eval loops to the infrastructure underneath.</p>
+    <p class="zh-line rv" style="--d:.16s">雷翔兮 · 构建可靠的系统、理解真实问题。</p>
+    <div class="ctas rv" style="--d:.2s">
+      <a class="btn btn-primary" href="https://github.com/Peterleixx" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        GitHub</a>
+      <a class="btn btn-ghost" href="mailto:peterlei001123@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        Email me <span class="arrow">→</span></a>
+    </div>
+    </div>
+    <div class="hero-side rv" style="--d:.3s" aria-hidden="true">
+      <div class="trace">
+        <div class="trace-h"><span>harness.run</span><span class="live"><span class="dot"></span>running</span></div>
+        <div class="trace-b">
+          <div class="brief">task<b>“Draft a launch kit for a new product line”</b></div>
+          <div class="lines">
+            <div class="tr"><span class="ix">01</span><span>understand task</span><span class="r ok">✓ planned</span></div>
+            <div class="tr"><span class="ix">02</span><span>read brand source</span><span class="r ok">✓ context</span></div>
+            <div class="tr"><span class="ix">03</span><span>call tools</span><span class="r ok">copy · image · video</span></div>
+            <div class="tr cur"><span class="ix">04</span><span>check result</span><span class="r ac">evaluator ●</span></div>
+            <div class="tr"><span class="ix">05</span><span>record feedback</span><span class="r">→ memory</span></div>
+          </div>
+          <div class="loopnote"><span>↺</span>next run starts from what the user corrected</div>
+        </div>
+      </div>
+      <div class="trace-cap">illustrative · agent harness loop</div>
+    </div>
+    </div>
+
+    <div class="metrics rv" style="--d:.28s">
+      <div class="metric"><div class="v">3<small>yrs</small></div><div class="k">AI agent &amp; AI application engineering in enterprise codebases</div></div>
+      <div class="metric"><div class="v">8-figure<small>RMB</small></div><div class="k">R&amp;D cost savings supported by an AI code-review audit platform</div></div>
+      <div class="metric"><div class="v">~60<small>FTE/yr</small></div><div class="k">Repetitive work removed by an automated documentation pipeline at Huawei</div></div>
+      <div class="metric"><div class="v">~9<small>channels</small></div><div class="k">Model channels orchestrated in the BrandNative agent harness</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="focus">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="eyebrow"><span>01</span> Focus</div>
+      <div><h2>Where product thinking meets <em>systems engineering.</em></h2></div>
+    </div>
+    <div class="caps rv">
+      <div class="cap"><div class="n">/ agent-harness</div><h3>Agent runtimes &amp; harnesses</h3><p>Task decomposition, tool routing, candidate checking, retries and run logs — so multi-step agents are traceable and reproducible.</p></div>
+      <div class="cap"><div class="n">/ tool-calling</div><h3>MCP, tool calling &amp; model gateways</h3><p>Multi-model routing where each model owns the step it is best at, behind stable, structured tool interfaces.</p></div>
+      <div class="cap"><div class="n">/ eval</div><h3>Evaluation &amp; human-in-the-loop</h3><p>Annotation, review, auto-scoring and feedback loops that turn model output into something you can measure and trust.</p></div>
+      <div class="cap"><div class="n">/ ai-coding</div><h3>AI coding workflow</h3><p>PRD → interface contract → vertical slice → AI-assisted coding → human review → automated acceptance, for teams of engineers and coding agents.</p></div>
+      <div class="cap"><div class="n">/ infra</div><h3>AI infrastructure</h3><p>Kubernetes task runtimes, Helm-based deployment, namespace isolation, and scheduling across heterogeneous GPU / NPU compute.</p></div>
+      <div class="cap"><div class="n">/ product</div><h3>Product ownership</h3><p>Prioritising by user roles, business loop, commercial viability and engineering cost — not just by what is technically interesting.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="work">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="eyebrow"><span>02</span> Selected work</div>
+      <div><h2>Systems taken from demo to <em>deployable.</em></h2><p>A few projects that show how I work — architecture, product decisions and the unglamorous reliability work in between.</p></div>
+    </div>
+
+    <div class="work">
+      <article class="card feature rv">
+        <div>
+          <div class="card-top"><span class="tag">4Paradigm × Gradient Network</span><span class="role">De facto tech lead + product</span></div>
+          <h3>Darvin — decentralized AI compute &amp; evaluation platform</h3>
+          <p class="desc">An AI infrastructure project co-incubated by 4Paradigm and Gradient Network that abstracts AI tasks, data annotation, model evaluation, K8s compute scheduling and on-chain incentives into reusable, general-purpose task subnets.</p>
+          <ul>
+            <li>Led the human-in-the-loop evaluation data platform: async task flows, review flows, webhooks, short-lived tokens, idempotent result pulls and auto-scoring.</li>
+            <li>Designed multi-tenant architecture with RBAC, identity mapping, audit logs and state machines across publishers, annotators, reviewers and operators.</li>
+            <li>Planned a unified K8s task runtime and scheduling across heterogeneous GPU / NPU and domestic compute.</li>
+            <li>Proposed an agent-friendly CLI — stable commands, structured output, step reports — as the operating layer for natural-language agents.</li>
+          </ul>
+          <div class="chips"><span class="chip">Kubernetes</span><span class="chip">Helm</span><span class="chip">RBAC</span><span class="chip">Eval platform</span><span class="chip">Agent CLI</span><span class="chip">CI/CD</span></div>
+        </div>
+        <div class="viz" aria-label="Evaluation loop illustration">
+          <div class="viz-head"><span><i></i><i></i><i></i></span><span>darvin · eval loop</span></div>
+          <div class="flow">
+            <div class="step ok"><span class="ix">01</span><span>task.create</span><span class="st">done</span></div>
+            <div class="step ok"><span class="ix">02</span><span>dataset.bind</span><span class="st">done</span></div>
+            <div class="step ok"><span class="ix">03</span><span>human.annotate</span><span class="st">done</span></div>
+            <div class="step ok"><span class="ix">04</span><span>review.approve</span><span class="st">done</span></div>
+            <div class="step run"><span class="ix">05</span><span>model.score</span><span class="st">running</span></div>
+            <div class="step"><span class="ix">06</span><span>leaderboard.update</span><span class="st">queued</span></div>
+          </div>
+          <div class="viz-foot">End-to-end loop shipped: create → bind → annotate → review → score → publish</div>
+        </div>
+      </article>
+
+      <article class="card rv">
+        <div class="card-top"><span class="tag">4Paradigm · company-wide</span><span class="role">Built solo</span></div>
+        <h3>AI code-review audit agent</h3>
+        <p class="desc">An enterprise R&amp;D-governance agent that turns commits into structured context, judges risk, routes to human review and feeds a management dashboard.</p>
+        <ul>
+          <li>7B-class code model (CodeQwen1.5-7B-Chat) for semantic summaries and risk explanations; deterministic rules filter first to cut inference cost.</li>
+          <li>Risk grading, attribution and human confirmation; batch and incremental scanning wired into internal repos and pipelines.</li>
+        </ul>
+        <div class="outcome"><b>Supported tens of millions of RMB</b> in R&amp;D cost savings.</div>
+      </article>
+
+      <article class="card rv" style="--d:.06s">
+        <div class="card-top"><span class="tag">Personal project · 2026</span><span class="role">Design + build</span></div>
+        <h3>BrandNative Agent Harness</h3>
+        <p class="desc">A multimodal agent that works like a brand-aware marketing assistant: it reads brand material first, then picks the right models for copy, images, music and video — and improves from feedback.</p>
+        <ul>
+          <li>Loop: understand task → read brand source → call tools → check result → record feedback.</li>
+          <li>Harness for decomposition, candidates, quality checks, retries and run logs across ~9 model channels incl. an evaluator.</li>
+        </ul>
+        <div class="chips"><span class="chip">Multimodal</span><span class="chip">MCP</span><span class="chip">Eval loop</span><span class="chip">Tauri</span></div>
+      </article>
+
+      <article class="card feature even rv">
+        <div>
+          <div class="card-top"><span class="tag">Huawei · 2023 – 2024</span><span class="role">AI / Python / integration</span></div>
+          <h3>AI for CI/CD at telecom scale</h3>
+          <p class="desc">In late 2023, while LLM engineering was still early, I explored function calling, model routing, RAG and rule engines for 5G / LTE version builds, alert analysis and pipeline care.</p>
+        </div>
+        <div>
+          <ul class="ul-top">
+            <li>Led an automated northbound-parameter documentation pipeline on Huawei Cloud — natural-language requirement parsing, templates and orchestration in one click.</li>
+            <li>Built knowledge retrieval over interface docs, version records, issue tickets and build logs.</li>
+            <li>Deployed code-standard quality gates combining static analysis, rules and pipeline admission.</li>
+          </ul>
+          <div class="outcome"><b>~60 people-equivalent per year</b> of repetitive documentation work saved.</div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="now">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="eyebrow"><span>03</span> Now / Building</div>
+      <div><h2>What I’m working on <em>right now.</em></h2></div>
+    </div>
+    <div class="now rv">
+      <div class="now-grid">
+        <div class="now-main">
+          <span class="status"><span class="dot"></span>IN PROGRESS</span>
+          <h3>Personal Agent runtime lab <em>— Android v0.1</em></h3>
+          <p>A local-first personal agent that acts on your behalf, starting with execution on Android. The goal is an agent you can actually rely on: clear boundaries, observable steps, and a human in the loop where it matters.</p>
+          <div class="road">
+            <div class="active"><span class="mono">Now</span><b>Android execution runtime</b> — v0.1, early and experimental</div>
+            <div><span class="mono">Next</span>Harness, evals and safety rails for on-device actions</div>
+            <div><span class="mono">Later</span>Broader local-first personal workflows</div>
+          </div>
+        </div>
+        <div class="now-side">
+          <div class="item">
+            <h4>Exploring</h4>
+            <h5>Visual AI documents</h5>
+            <p>How AI-generated documents can become more visual, structured and genuinely useful to read.</p>
+          </div>
+          <div class="quote">“Design reliable systems, understand user problems, validate products.”<span class="zh">可靠 · 理解 · 验证</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="open-source">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="eyebrow"><span>04</span> Open source</div>
+      <div><h2>From the <em>workbench.</em></h2></div>
+    </div>
+    <div class="repos">
+      <a class="repo rv" href="https://github.com/Peterleixx/agentverse" target="_blank" rel="noopener">
+        <div class="repo-top"><span class="lang"><i style="background:#3178c6"></i>TypeScript</span><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.71 1.71.75.75 0 0 1-1.06 1.06A2.49 2.49 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.71A2.49 2.49 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.09a.25.25 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"/></svg></div>
+        <h3>agentverse <span class="ext">↗</span></h3>
+        <p>Multimodal AI creation with reusable agents and feedback loops — the BrandAgent / BrandNative monorepo: Tauri + React desktop app, brand-source management, content agent presets and a generation gateway.</p>
+      </a>
+      <a class="repo rv" style="--d:.06s" href="https://github.com/Peterleixx/Agent_Context_OS" target="_blank" rel="noopener">
+        <div class="repo-top"><span class="lang"><i style="background:#3572a5"></i>Python</span><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.71 1.71.75.75 0 0 1-1.06 1.06A2.49 2.49 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.71A2.49 2.49 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.09a.25.25 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"/></svg></div>
+        <h3>Agent_Context_OS <span class="ext">↗</span></h3>
+        <p>Codex skills and a local app for building a Markdown-first “PersonaVault” — a local persona context built from authorised personal material, started in two commands.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="experience">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="eyebrow"><span>05</span> Experience</div>
+      <div><h2>Where I’ve <em>shipped.</em></h2></div>
+    </div>
+    <div class="tl">
+      <div class="tl-row rv">
+        <div class="when">2024 — Present</div>
+        <div><h3>4Paradigm<span class="zh">第四范式</span></h3><div class="pos">AI Native Application &amp; Platform Tech Lead</div>
+          <p class="sum">Tech lead and product planner for Darvin; built the company-level AI code-review audit agent; built a deployment framework that helps algorithm scientists ship models to heterogeneous domestic compute clusters and edge devices.</p></div>
+        <div class="chipset"><span class="chip">Agents</span><span class="chip">K8s</span><span class="chip">Eval</span></div>
+      </div>
+      <div class="tl-row rv">
+        <div class="when">2023.11 — 2024</div>
+        <div><h3>Huawei<span class="zh">华为</span></h3><div class="pos">AI LLM / Python / Software Integration Engineer</div>
+          <p class="sum">AI for CI/CD on 5G / LTE products: function calling, RAG and rule engines for builds and alerting; workflow automation saving ~60 people-equivalent per year; code-quality gates.</p></div>
+        <div class="chipset"><span class="chip">RAG</span><span class="chip">Python</span><span class="chip">CI/CD</span></div>
+      </div>
+      <div class="tl-row rv">
+        <div class="when">2022.11 — 2023.09</div>
+        <div><h3>Yuandian Gongzhen<span class="zh">元点共振科技</span></h3><div class="pos">Python Software Engineer</div>
+          <p class="sum">Led a FastAPI user microservice and SDK; AWS DynamoDB / S3 for metadata and media; CI/CD with GitHub Actions to Elastic Beanstalk.</p></div>
+        <div class="chipset"><span class="chip">FastAPI</span><span class="chip">AWS</span></div>
+      </div>
+      <div class="tl-row rv">
+        <div class="when">2020.05 — 2022.08</div>
+        <div><h3>Early backend internships</h3><div class="pos">Java / Spring Boot</div>
+          <p class="sum">Exchange-data extraction and scheduling with PostgreSQL and Redis distributed locks; an inventory-control system automating stock tracking and order processing.</p></div>
+        <div class="chipset"><span class="chip">Java</span><span class="chip">Redis</span></div>
+      </div>
+    </div>
+
+    <div class="sec-head rv" style="margin-top:120px">
+      <div class="eyebrow"><span>06</span> Education</div>
+      <div><h2>Foundations.</h2></div>
+    </div>
+    <div class="tl">
+      <div class="tl-row rv">
+        <div class="when">2019 — 2023</div>
+        <div><h3>The Ohio State University<span class="zh">俄亥俄州立大学</span></h3><div class="pos">B.S. Computer &amp; Information Science</div>
+          <p class="sum">Data structures &amp; algorithms · Object-oriented software engineering · Machine learning · Mobile app development · Computer vision · Network security</p></div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2 class="rv">Let’s build something <em>reliable.</em></h2>
+    <p class="rv" style="--d:.06s">Open to conversations about AI agents, agent platforms, enterprise AI delivery and product-minded engineering leadership.</p>
+    <div class="ctas rv" style="--d:.12s">
+      <a class="btn btn-primary" href="mailto:peterlei001123@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        Email me</a>
+      <a class="btn btn-ghost" href="https://github.com/Peterleixx" target="_blank" rel="noopener">GitHub <span class="arrow">↗</span></a>
+    </div>
+    <div class="mail rv" style="--d:.16s"><a href="mailto:peterlei001123@gmail.com">peterlei001123@gmail.com</a></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="y">2026</span> Peter Lei · 雷翔兮</span>
+    <nav><a href="https://github.com/Peterleixx" target="_blank" rel="noopener">GitHub</a><a href="mailto:peterlei001123@gmail.com">Email</a><a href="#top">Back to top ↑</a></nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var d=document.documentElement; d.classList.add('js');
+  var y=document.getElementById('y'); if(y) y.textContent=new Date().getFullYear();
+  var nav=document.querySelector('header.nav');
+  var onS=function(){nav.classList.toggle('scrolled',window.scrollY>8)}; onS(); addEventListener('scroll',onS,{passive:true});
+  var els=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:.05});
+    els.forEach(function(el){io.observe(el)});
+  } else els.forEach(function(el){el.classList.add('in')});
+  document.querySelectorAll('.card').forEach(function(c){c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')})});
+})();
+</script>
+</body>
+</html>
