@@ -3,17 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Peter Lei · 雷翔兮 — AI Native Engineer & Tech Lead</title>
+<title>Peter Lei · 雷翔兮 — AI Native Engineer &amp; Tech Lead</title>
 <meta name="description" content="Peter Lei (雷翔兮) — AI-native application & platform tech lead. Agent harnesses, eval loops, AI coding workflows and the infrastructure underneath.">
 <meta name="theme-color" content="#09090b">
 <meta property="og:title" content="Peter Lei · 雷翔兮">
 <meta property="og:description" content="A technical builder who designs reliable systems, understands user problems, and validates products.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2309090b'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='Georgia,serif' font-size='30' fill='%23e8e8ea'%3EP%3C/text%3E%3C/svg%3E">
+<script>(function(){var d=document.documentElement,l=null;d.classList.add('js');try{var q=new URLSearchParams(location.search).get('lang');if(q==='zh'||q==='en'){l=q;localStorage.setItem('lang',q)}else{l=localStorage.getItem('lang')}}catch(e){}if(l!=='zh'&&l!=='en'){l=/^zh/i.test(navigator.language||'')?'zh':'en'}d.setAttribute('data-lang',l);d.lang=l==='zh'?'zh-CN':'en'})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500&text=%E3%80%81%E3%80%82%E4%B8%BA%E4%BA%A5%E4%BF%84%E5%85%83%E5%85%AE%E5%85%B1%E5%8D%8E%E5%8F%AF%E5%9B%9B%E5%A4%A7%E5%AD%A6%E5%AE%9E%E5%B7%9E%E5%BB%BA%E5%BC%8F%E6%8A%80%E6%8C%AF%E6%9E%84%E7%82%B9%E7%90%86%E7%9A%84%E7%9C%9F%E7%A7%91%E7%AB%8B%E7%AC%AC%E7%B3%BB%E7%BB%9F%E7%BF%94%E8%8C%83%E8%A7%A3%E8%AF%81%E9%97%AE%E9%9B%B7%E9%9D%A0%E9%A2%98%E9%AA%8C&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#09090b; --bg-2:#0e0e11; --panel:rgba(255,255,255,.025); --line:rgba(255,255,255,.07); --line-2:rgba(255,255,255,.12);
@@ -193,8 +194,8 @@ section{position:relative;z-index:1}
 .repo h3 .ext{color:var(--fg-3);transition:transform .25s,color .25s}
 .repo:hover h3 .ext{transform:translate(2px,-2px);color:var(--accent)}
 .repo p{margin-top:8px;font-size:14px;color:var(--fg-2)}
-.repo .lang{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px}
-.repo .lang i{width:8px;height:8px;border-radius:50%}
+.repo .lang-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px}
+.repo .lang-tag i{width:8px;height:8px;border-radius:50%}
 
 /* timeline */
 .tl{border-top:1px solid var(--line)}
@@ -269,6 +270,66 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;position:relative;z-
   .contact{padding:112px 0 64px}
   .foot{flex-direction:column;align-items:flex-start}
 }
+
+/* ---------- language toggle ---------- */
+.nav-right{display:flex;align-items:center;gap:12px}
+.lang{position:relative;display:none;align-items:center;padding:3px;border:1px solid var(--line-2);border-radius:999px;background:rgba(255,255,255,.03)}
+.js .lang{display:inline-flex}
+.lang button{position:relative;z-index:1;appearance:none;border:0;background:none;cursor:pointer;width:46px;height:26px;border-radius:999px;font:500 12px/1 var(--sans);color:var(--fg-3);transition:color .25s}
+.lang button[lang]{font-family:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:12.5px}
+.lang button[aria-pressed="true"]{color:var(--fg)}
+.lang button:hover{color:var(--fg)}
+.lang button:focus-visible{outline:1px solid var(--accent);outline-offset:1px}
+.lang-thumb{position:absolute;top:3px;left:3px;width:46px;height:26px;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.06));box-shadow:0 0 0 1px rgba(255,255,255,.08) inset,0 2px 8px rgba(0,0,0,.35);transition:transform .35s cubic-bezier(.3,.7,.2,1)}
+html[data-lang="zh"] .lang-thumb{transform:translateX(46px)}
+.btn-note{font-family:var(--mono);font-size:10.5px;font-weight:400;color:var(--fg-3);margin-left:4px;padding-left:9px;border-left:1px solid var(--line-2);letter-spacing:.02em}
+.eyebrow b{font-weight:400}
+.hero h1,.sec-head h2,.contact h2,.card h3,.now-main h3{text-wrap:balance}
+.lede,.desc,.card li,.sum,.cap p{text-wrap:pretty}
+.en-sub{font-family:var(--mono)!important;font-size:12px;letter-spacing:.04em;color:var(--fg-3)}
+
+/* ---------- Chinese typography ---------- */
+html[lang^="zh"]{--sans:"Inter","Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",ui-sans-serif,system-ui,sans-serif}
+html[lang^="zh"] body{font-family:var(--sans);line-height:1.8;font-feature-settings:normal}
+html[lang^="zh"] .hero h1{font-size:clamp(42px,6.2vw,80px);line-height:1.14;letter-spacing:-.025em;font-weight:600;max-width:none}
+html[lang^="zh"] .hero h1 em,html[lang^="zh"] .sec-head h2 em,html[lang^="zh"] .contact h2 em{font-family:var(--zh);font-style:normal;font-weight:600;letter-spacing:.01em;padding:0 .04em}
+html[lang^="zh"] .hero h1 em{padding:0 .02em}
+html[lang^="zh"] .hero .lede{font-size:17px;line-height:1.95;max-width:34em}
+html[lang^="zh"] .hero .zh-line{letter-spacing:0}
+html[lang^="zh"] .sec-head h2{font-weight:600;letter-spacing:-.01em;line-height:1.3}
+html[lang^="zh"] .sec-head p{line-height:1.85}
+html[lang^="zh"] .eyebrow b{letter-spacing:.16em;font-family:var(--sans);font-size:12.5px}
+html[lang^="zh"] .metric .v{font-weight:600}
+html[lang^="zh"] .metric .k,html[lang^="zh"] .cap p,html[lang^="zh"] .card li,html[lang^="zh"] .sum{line-height:1.8}
+html[lang^="zh"] .cap h3,html[lang^="zh"] .card h3,html[lang^="zh"] .tl-row h3,html[lang^="zh"] .now-main h3{font-weight:600;letter-spacing:0}
+html[lang^="zh"] .card .desc{line-height:1.85}
+html[lang^="zh"] .tag,html[lang^="zh"] .role{font-family:var(--sans);letter-spacing:.02em}
+html[lang^="zh"] .role{font-size:11.5px}
+html[lang^="zh"] .viz-foot,html[lang^="zh"] .trace-cap,html[lang^="zh"] .loopnote em,html[lang^="zh"] .road .mono{font-family:var(--sans)}
+html[lang^="zh"] .tr span:not(.ix){font-family:var(--sans)}
+html[lang^="zh"] .trace .brief b{font-family:var(--sans)}
+html[lang^="zh"] .status{font-family:var(--sans)!important;letter-spacing:.14em}
+html[lang^="zh"] .now-main p,html[lang^="zh"] .now-side .item p{line-height:1.9}
+html[lang^="zh"] .quote{font-family:var(--zh);font-style:normal;font-size:19px;line-height:1.65;font-weight:500}
+html[lang^="zh"] .quote .zh{font-size:11px}
+html[lang^="zh"] .tl-row h3 .zh,html[lang^="zh"] .brand .zh{font-family:"Inter",var(--sans);font-size:13px;font-weight:400}
+html[lang^="zh"] .contact h2{font-weight:600;letter-spacing:-.02em;line-height:1.2}
+html[lang^="zh"] .contact p{line-height:1.9}
+html[lang^="zh"] .now-side h4{letter-spacing:.16em;font-family:var(--sans)}
+.loopnote em{font-style:normal}
+@media (max-width:720px){
+  html[lang^="zh"] .hero h1{font-size:clamp(36px,10.4vw,50px)}
+  html[lang^="zh"] .hero .lede{font-size:16px}
+  .ctas .btn{height:42px;padding:0 16px}
+}
+@media (max-width:440px){
+  .nav-cta{display:none}
+}
+.quote,.contact p{text-wrap:balance}
+.now-main p,.now-side p,.sec-head p{text-wrap:pretty}
+html[lang^="zh"] .sec-head h2{max-width:16em}
+html[lang^="zh"] .hero h1 em,html[lang^="zh"] .sec-head h2 em,html[lang^="zh"] .contact h2 em{white-space:nowrap;padding:0}
+html[lang^="zh"] .contact p{max-width:30em}
 </style>
 </head>
 <body>
@@ -277,11 +338,18 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;position:relative;z-
 
 <header class="nav" id="top">
   <div class="wrap nav-in">
-    <a class="brand" href="#top" aria-label="Peter Lei — home"><span class="mark">P</span>Peter Lei <span class="zh">雷翔兮</span></a>
+    <a class="brand" href="#top" aria-label="Peter Lei — home"><span class="mark">P</span><span data-i18n="brand">Peter Lei <span class="zh">雷翔兮</span></span></a>
     <nav class="nav-links" aria-label="Sections">
-      <a href="#work">Work</a><a href="#now">Now</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
+      <a href="#work" data-i18n="nav.work">Work</a><a href="#now" data-i18n="nav.now">Now</a><a href="#experience" data-i18n="nav.exp">Experience</a><a href="#contact" data-i18n="nav.contact">Contact</a>
     </nav>
-    <a class="nav-cta" href="mailto:peterlei001123@gmail.com">Get in touch</a>
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Language">
+        <span class="lang-thumb" aria-hidden="true"></span>
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="zh" aria-pressed="false" lang="zh-CN">中文</button>
+      </div>
+      <a class="nav-cta" href="mailto:peterlei001123@gmail.com" data-i18n="nav.cta">Get in touch</a>
+    </div>
   </div>
 </header>
 
@@ -289,43 +357,46 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;position:relative;z-
 <section class="hero">
   <div class="wrap">
     <div class="hero-grid"><div class="hero-main">
-    <a class="pill rv" href="#now"><span class="dot"></span>Now building a local-first Personal Agent</a>
-    <h1 class="rv" style="--d:.06s">Building <em>reliable</em> AI systems that ship.</h1>
-    <p class="lede rv" style="--d:.12s">I’m <strong>Peter Lei</strong> — an AI-native application &amp; platform tech lead at <strong>4Paradigm</strong>. A technical builder who designs reliable systems, understands user problems, and validates products: from agent harnesses and eval loops to the infrastructure underneath.</p>
-    <p class="zh-line rv" style="--d:.16s">雷翔兮 · 构建可靠的系统、理解真实问题。</p>
+    <a class="pill rv" href="#now"><span class="dot"></span><span data-i18n="hero.pill">Now building a local-first Personal Agent</span></a>
+    <h1 class="rv" style="--d:.06s" data-i18n="hero.h1">Building <em>reliable</em> AI systems that ship.</h1>
+    <p class="lede rv" style="--d:.12s" data-i18n="hero.lede">I’m <strong>Peter Lei</strong> — an AI-native application &amp; platform tech lead at <strong>4Paradigm</strong>. A technical builder who designs reliable systems, understands user problems, and validates products: from agent harnesses and eval loops to the infrastructure underneath.</p>
+    <p class="zh-line rv" style="--d:.16s" data-i18n="hero.sub">雷翔兮 · 构建可靠的系统、理解真实问题。</p>
     <div class="ctas rv" style="--d:.2s">
       <a class="btn btn-primary" href="https://github.com/Peterleixx" target="_blank" rel="noopener">
         <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
         GitHub</a>
       <a class="btn btn-ghost" href="mailto:peterlei001123@gmail.com">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
-        Email me <span class="arrow">→</span></a>
+        <span data-i18n="cta.email">Email me</span> <span class="arrow">→</span></a>
+      <a class="btn btn-ghost" href="Peter-Lei-Resume-CN.pdf" target="_blank" rel="noopener" type="application/pdf">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>
+        <span data-i18n="cta.resume">Résumé <span class="btn-note">PDF · 中文</span></span></a>
     </div>
     </div>
     <div class="hero-side rv" style="--d:.3s" aria-hidden="true">
       <div class="trace">
         <div class="trace-h"><span>harness.run</span><span class="live"><span class="dot"></span>running</span></div>
         <div class="trace-b">
-          <div class="brief">task<b>“Draft a launch kit for a new product line”</b></div>
+          <div class="brief"><span data-i18n="tr.task">task</span><b data-i18n="tr.brief">“Draft a launch kit for a new product line”</b></div>
           <div class="lines">
-            <div class="tr"><span class="ix">01</span><span>understand task</span><span class="r ok">✓ planned</span></div>
-            <div class="tr"><span class="ix">02</span><span>read brand source</span><span class="r ok">✓ context</span></div>
-            <div class="tr"><span class="ix">03</span><span>call tools</span><span class="r ok">copy · image · video</span></div>
-            <div class="tr cur"><span class="ix">04</span><span>check result</span><span class="r ac">evaluator ●</span></div>
-            <div class="tr"><span class="ix">05</span><span>record feedback</span><span class="r">→ memory</span></div>
+            <div class="tr"><span class="ix">01</span><span data-i18n="tr.1">understand task</span><span class="r ok" data-i18n="tr.1r">✓ planned</span></div>
+            <div class="tr"><span class="ix">02</span><span data-i18n="tr.2">read brand source</span><span class="r ok" data-i18n="tr.2r">✓ context</span></div>
+            <div class="tr"><span class="ix">03</span><span data-i18n="tr.3">call tools</span><span class="r ok" data-i18n="tr.3r">copy · image · video</span></div>
+            <div class="tr cur"><span class="ix">04</span><span data-i18n="tr.4">check result</span><span class="r ac" data-i18n="tr.4r">evaluator ●</span></div>
+            <div class="tr"><span class="ix">05</span><span data-i18n="tr.5">record feedback</span><span class="r" data-i18n="tr.5r">→ memory</span></div>
           </div>
-          <div class="loopnote"><span>↺</span>next run starts from what the user corrected</div>
+          <div class="loopnote"><span>↺</span><em data-i18n="tr.loop">next run starts from what the user corrected</em></div>
         </div>
       </div>
-      <div class="trace-cap">illustrative · agent harness loop</div>
+      <div class="trace-cap" data-i18n="tr.cap">illustrative · agent harness loop</div>
     </div>
     </div>
 
     <div class="metrics rv" style="--d:.28s">
-      <div class="metric"><div class="v">3<small>yrs</small></div><div class="k">AI agent &amp; AI application engineering in enterprise codebases</div></div>
-      <div class="metric"><div class="v">8-figure<small>RMB</small></div><div class="k">R&amp;D cost savings supported by an AI code-review audit platform</div></div>
-      <div class="metric"><div class="v">~60<small>FTE/yr</small></div><div class="k">Repetitive work removed by an automated documentation pipeline at Huawei</div></div>
-      <div class="metric"><div class="v">~9<small>channels</small></div><div class="k">Model channels orchestrated in the BrandNative agent harness</div></div>
+      <div class="metric"><div class="v" data-i18n="m1v">3<small>yrs</small></div><div class="k" data-i18n="m1k">AI agent &amp; AI application engineering in enterprise codebases</div></div>
+      <div class="metric"><div class="v" data-i18n="m2v">8-figure<small>RMB</small></div><div class="k" data-i18n="m2k">R&amp;D cost savings supported by an AI code-review audit platform</div></div>
+      <div class="metric"><div class="v" data-i18n="m3v">~60<small>FTE/yr</small></div><div class="k" data-i18n="m3k">Repetitive work removed by an automated documentation pipeline at Huawei</div></div>
+      <div class="metric"><div class="v" data-i18n="m4v">~9<small>channels</small></div><div class="k" data-i18n="m4k">Model channels orchestrated in the BrandNative agent harness</div></div>
     </div>
   </div>
 </section>
@@ -333,16 +404,16 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;position:relative;z-
 <section class="sec" id="focus">
   <div class="wrap">
     <div class="sec-head rv">
-      <div class="eyebrow"><span>01</span> Focus</div>
-      <div><h2>Where product thinking meets <em>systems engineering.</em></h2></div>
+      <div class="eyebrow"><span>01</span> <b data-i18n="focus.eb">Focus</b></div>
+      <div><h2 data-i18n="focus.h2">Where product thinking meets <em>systems engineering.</em></h2></div>
     </div>
     <div class="caps rv">
-      <div class="cap"><div class="n">/ agent-harness</div><h3>Agent runtimes &amp; harnesses</h3><p>Task decomposition, tool routing, candidate checking, retries and run logs — so multi-step agents are traceable and reproducible.</p></div>
-      <div class="cap"><div class="n">/ tool-calling</div><h3>MCP, tool calling &amp; model gateways</h3><p>Multi-model routing where each model owns the step it is best at, behind stable, structured tool interfaces.</p></div>
-      <div class="cap"><div class="n">/ eval</div><h3>Evaluation &amp; human-in-the-loop</h3><p>Annotation, review, auto-scoring and feedback loops that turn model output into something you can measure and trust.</p></div>
-      <div class="cap"><div class="n">/ ai-coding</div><h3>AI coding workflow</h3><p>PRD → interface contract → vertical slice → AI-assisted coding → human review → automated acceptance, for teams of engineers and coding agents.</p></div>
-      <div class="cap"><div class="n">/ infra</div><h3>AI infrastructure</h3><p>Kubernetes task runtimes, Helm-based deployment, namespace isolation, and scheduling across heterogeneous GPU / NPU compute.</p></div>
-      <div class="cap"><div class="n">/ product</div><h3>Product ownership</h3><p>Prioritising by user roles, business loop, commercial viability and engineering cost — not just by what is technically interesting.</p></div>
+      <div class="cap"><div class="n">/ agent-harness</div><h3 data-i18n="c1h">Agent runtimes &amp; harnesses</h3><p data-i18n="c1p">Task decomposition, tool routing, candidate checking, retries and run logs — so multi-step agents are traceable and reproducible.</p></div>
+      <div class="cap"><div class="n">/ tool-calling</div><h3 data-i18n="c2h">MCP, tool calling &amp; model gateways</h3><p data-i18n="c2p">Multi-model routing where each model owns the step it is best at, behind stable, structured tool interfaces.</p></div>
+      <div class="cap"><div class="n">/ eval</div><h3 data-i18n="c3h">Evaluation &amp; human-in-the-loop</h3><p data-i18n="c3p">Annotation, review, auto-scoring and feedback loops that turn model output into something you can measure and trust.</p></div>
+      <div class="cap"><div class="n">/ ai-coding</div><h3 data-i18n="c4h">AI coding workflow</h3><p data-i18n="c4p">PRD → interface contract → vertical slice → AI-assisted coding → human review → automated acceptance, for teams of engineers and coding agents.</p></div>
+      <div class="cap"><div class="n">/ infra</div><h3 data-i18n="c5h">AI infrastructure</h3><p data-i18n="c5p">Kubernetes task runtimes, Helm-based deployment, namespace isolation, and scheduling across heterogeneous GPU / NPU compute.</p></div>
+      <div class="cap"><div class="n">/ product</div><h3 data-i18n="c6h">Product ownership</h3><p data-i18n="c6p">Prioritising by user roles, business loop, commercial viability and engineering cost — not just by what is technically interesting.</p></div>
     </div>
   </div>
 </section>
@@ -350,23 +421,23 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;position:relative;z-
 <section class="sec" id="work">
   <div class="wrap">
     <div class="sec-head rv">
-      <div class="eyebrow"><span>02</span> Selected work</div>
-      <div><h2>Systems taken from demo to <em>deployable.</em></h2><p>A few projects that show how I work — architecture, product decisions and the unglamorous reliability work in between.</p></div>
+      <div class="eyebrow"><span>02</span> <b data-i18n="work.eb">Selected work</b></div>
+      <div><h2 data-i18n="work.h2">Systems taken from demo to <em>deployable.</em></h2><p data-i18n="work.p">A few projects that show how I work — architecture, product decisions and the unglamorous reliability work in between.</p></div>
     </div>
 
     <div class="work">
       <article class="card feature rv">
         <div>
-          <div class="card-top"><span class="tag">4Paradigm × Gradient Network</span><span class="role">De facto tech lead + product</span></div>
-          <h3>Darvin — decentralized AI compute &amp; evaluation platform</h3>
-          <p class="desc">An AI infrastructure project co-incubated by 4Paradigm and Gradient Network that abstracts AI tasks, data annotation, model evaluation, K8s compute scheduling and on-chain incentives into reusable, general-purpose task subnets.</p>
-          <ul>
+          <div class="card-top"><span class="tag" data-i18n="d.tag">4Paradigm × Gradient Network</span><span class="role" data-i18n="d.role">De facto tech lead + product</span></div>
+          <h3 data-i18n="d.h3">Darvin — decentralized AI compute &amp; evaluation platform</h3>
+          <p class="desc" data-i18n="d.desc">An AI infrastructure project co-incubated by 4Paradigm and Gradient Network that abstracts AI tasks, data annotation, model evaluation, K8s compute scheduling and on-chain incentives into reusable, general-purpose task subnets.</p>
+          <ul data-i18n="d.ul">
             <li>Led the human-in-the-loop evaluation data platform: async task flows, review flows, webhooks, short-lived tokens, idempotent result pulls and auto-scoring.</li>
             <li>Designed multi-tenant architecture with RBAC, identity mapping, audit logs and state machines across publishers, annotators, reviewers and operators.</li>
             <li>Planned a unified K8s task runtime and scheduling across heterogeneous GPU / NPU and domestic compute.</li>
             <li>Proposed an agent-friendly CLI — stable commands, structured output, step reports — as the operating layer for natural-language agents.</li>
           </ul>
-          <div class="chips"><span class="chip">Kubernetes</span><span class="chip">Helm</span><span class="chip">RBAC</span><span class="chip">Eval platform</span><span class="chip">Agent CLI</span><span class="chip">CI/CD</span></div>
+          <div class="chips"><span class="chip">Kubernetes</span><span class="chip">Helm</span><span class="chip">RBAC</span><span class="chip" data-i18n="chip.eval">Eval platform</span><span class="chip">Agent CLI</span><span class="chip">CI/CD</span></div>
         </div>
         <div class="viz" aria-label="Evaluation loop illustration">
           <div class="viz-head"><span><i></i><i></i><i></i></span><span>darvin · eval loop</span></div>
@@ -378,45 +449,45 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;position:relative;z-
             <div class="step run"><span class="ix">05</span><span>model.score</span><span class="st">running</span></div>
             <div class="step"><span class="ix">06</span><span>leaderboard.update</span><span class="st">queued</span></div>
           </div>
-          <div class="viz-foot">End-to-end loop shipped: create → bind → annotate → review → score → publish</div>
+          <div class="viz-foot" data-i18n="d.foot">End-to-end loop shipped: create → bind → annotate → review → score → publish</div>
         </div>
       </article>
 
       <article class="card rv">
-        <div class="card-top"><span class="tag">4Paradigm · company-wide</span><span class="role">Built solo</span></div>
-        <h3>AI code-review audit agent</h3>
-        <p class="desc">An enterprise R&amp;D-governance agent that turns commits into structured context, judges risk, routes to human review and feeds a management dashboard.</p>
-        <ul>
+        <div class="card-top"><span class="tag" data-i18n="cr.tag">4Paradigm · company-wide</span><span class="role" data-i18n="cr.role">Built solo</span></div>
+        <h3 data-i18n="cr.h3">AI code-review audit agent</h3>
+        <p class="desc" data-i18n="cr.desc">An enterprise R&amp;D-governance agent that turns commits into structured context, judges risk, routes to human review and feeds a management dashboard.</p>
+        <ul data-i18n="cr.ul">
           <li>7B-class code model (CodeQwen1.5-7B-Chat) for semantic summaries and risk explanations; deterministic rules filter first to cut inference cost.</li>
           <li>Risk grading, attribution and human confirmation; batch and incremental scanning wired into internal repos and pipelines.</li>
         </ul>
-        <div class="outcome"><b>Supported tens of millions of RMB</b> in R&amp;D cost savings.</div>
+        <div class="outcome" data-i18n="cr.out"><b>Supported tens of millions of RMB</b> in R&amp;D cost savings.</div>
       </article>
 
       <article class="card rv" style="--d:.06s">
-        <div class="card-top"><span class="tag">Personal project · 2026</span><span class="role">Design + build</span></div>
+        <div class="card-top"><span class="tag" data-i18n="bn.tag">Personal project · 2026</span><span class="role" data-i18n="bn.role">Design + build</span></div>
         <h3>BrandNative Agent Harness</h3>
-        <p class="desc">A multimodal agent that works like a brand-aware marketing assistant: it reads brand material first, then picks the right models for copy, images, music and video — and improves from feedback.</p>
-        <ul>
+        <p class="desc" data-i18n="bn.desc">A multimodal agent that works like a brand-aware marketing assistant: it reads brand material first, then picks the right models for copy, images, music and video — and improves from feedback.</p>
+        <ul data-i18n="bn.ul">
           <li>Loop: understand task → read brand source → call tools → check result → record feedback.</li>
           <li>Harness for decomposition, candidates, quality checks, retries and run logs across ~9 model channels incl. an evaluator.</li>
         </ul>
-        <div class="chips"><span class="chip">Multimodal</span><span class="chip">MCP</span><span class="chip">Eval loop</span><span class="chip">Tauri</span></div>
+        <div class="chips" data-i18n="bn.chips"><span class="chip">Multimodal</span><span class="chip">MCP</span><span class="chip">Eval loop</span><span class="chip">Tauri</span></div>
       </article>
 
       <article class="card feature even rv">
         <div>
-          <div class="card-top"><span class="tag">Huawei · 2023 – 2024</span><span class="role">AI / Python / integration</span></div>
-          <h3>AI for CI/CD at telecom scale</h3>
-          <p class="desc">In late 2023, while LLM engineering was still early, I explored function calling, model routing, RAG and rule engines for 5G / LTE version builds, alert analysis and pipeline care.</p>
+          <div class="card-top"><span class="tag" data-i18n="hw.tag">Huawei · 2023 – 2024</span><span class="role" data-i18n="hw.role">AI / Python / integration</span></div>
+          <h3 data-i18n="hw.h3">AI for CI/CD at telecom scale</h3>
+          <p class="desc" data-i18n="hw.desc">In late 2023, while LLM engineering was still early, I explored function calling, model routing, RAG and rule engines for 5G / LTE version builds, alert analysis and pipeline care.</p>
         </div>
         <div>
-          <ul class="ul-top">
+          <ul class="ul-top" data-i18n="hw.ul">
             <li>Led an automated northbound-parameter documentation pipeline on Huawei Cloud — natural-language requirement parsing, templates and orchestration in one click.</li>
             <li>Built knowledge retrieval over interface docs, version records, issue tickets and build logs.</li>
             <li>Deployed code-standard quality gates combining static analysis, rules and pipeline admission.</li>
           </ul>
-          <div class="outcome"><b>~60 people-equivalent per year</b> of repetitive documentation work saved.</div>
+          <div class="outcome" data-i18n="hw.out"><b>~60 people-equivalent per year</b> of repetitive documentation work saved.</div>
         </div>
       </article>
     </div>
@@ -426,16 +497,16 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;position:relative;z-
 <section class="sec" id="now">
   <div class="wrap">
     <div class="sec-head rv">
-      <div class="eyebrow"><span>03</span> Now / Building</div>
-      <div><h2>What I’m working on <em>right now.</em></h2></div>
+      <div class="eyebrow"><span>03</span> <b data-i18n="now.eb">Now / Building</b></div>
+      <div><h2 data-i18n="now.h2">What I’m working on <em>right now.</em></h2></div>
     </div>
     <div class="now rv">
       <div class="now-grid">
         <div class="now-main">
-          <span class="status"><span class="dot"></span>IN PROGRESS</span>
-          <h3>Personal Agent runtime lab <em>— Android v0.1</em></h3>
-          <p>A local-first personal agent that acts on your behalf, starting with execution on Android. The goal is an agent you can actually rely on: clear boundaries, observable steps, and a human in the loop where it matters.</p>
-          <div class="road">
+          <span class="status"><span class="dot"></span><span data-i18n="now.status">IN PROGRESS</span></span>
+          <h3 data-i18n="now.h3">Personal Agent runtime lab <em>— Android v0.1</em></h3>
+          <p data-i18n="now.p">A local-first personal agent that acts on your behalf, starting with execution on Android. The goal is an agent you can actually rely on: clear boundaries, observable steps, and a human in the loop where it matters.</p>
+          <div class="road" data-i18n="now.road">
             <div class="active"><span class="mono">Now</span><b>Android execution runtime</b> — v0.1, early and experimental</div>
             <div><span class="mono">Next</span>Harness, evals and safety rails for on-device actions</div>
             <div><span class="mono">Later</span>Broader local-first personal workflows</div>
@@ -443,11 +514,11 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;position:relative;z-
         </div>
         <div class="now-side">
           <div class="item">
-            <h4>Exploring</h4>
-            <h5>Visual AI documents</h5>
-            <p>How AI-generated documents can become more visual, structured and genuinely useful to read.</p>
+            <h4 data-i18n="now.ex">Exploring</h4>
+            <h5 data-i18n="now.vh">Visual AI documents</h5>
+            <p data-i18n="now.vp">How AI-generated documents can become more visual, structured and genuinely useful to read.</p>
           </div>
-          <div class="quote">“Design reliable systems, understand user problems, validate products.”<span class="zh">可靠 · 理解 · 验证</span></div>
+          <div class="quote" data-i18n="now.q">“Design reliable systems, understand user problems, validate products.”<span class="zh">可靠 · 理解 · 验证</span></div>
         </div>
       </div>
     </div>
@@ -457,19 +528,19 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;position:relative;z-
 <section class="sec" id="open-source">
   <div class="wrap">
     <div class="sec-head rv">
-      <div class="eyebrow"><span>04</span> Open source</div>
-      <div><h2>From the <em>workbench.</em></h2></div>
+      <div class="eyebrow"><span>04</span> <b data-i18n="os.eb">Open source</b></div>
+      <div><h2 data-i18n="os.h2">From the <em>workbench.</em></h2></div>
     </div>
     <div class="repos">
       <a class="repo rv" href="https://github.com/Peterleixx/agentverse" target="_blank" rel="noopener">
-        <div class="repo-top"><span class="lang"><i style="background:#3178c6"></i>TypeScript</span><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.71 1.71.75.75 0 0 1-1.06 1.06A2.49 2.49 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.71A2.49 2.49 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.09a.25.25 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"/></svg></div>
+        <div class="repo-top"><span class="lang-tag"><i style="background:#3178c6"></i>TypeScript</span><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.71 1.71.75.75 0 0 1-1.06 1.06A2.49 2.49 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.71A2.49 2.49 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.09a.25.25 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"/></svg></div>
         <h3>agentverse <span class="ext">↗</span></h3>
-        <p>Multimodal AI creation with reusable agents and feedback loops — the BrandAgent / BrandNative monorepo: Tauri + React desktop app, brand-source management, content agent presets and a generation gateway.</p>
+        <p data-i18n="os.a">Multimodal AI creation with reusable agents and feedback loops — the BrandAgent / BrandNative monorepo: Tauri + React desktop app, brand-source management, content agent presets and a generation gateway.</p>
       </a>
       <a class="repo rv" style="--d:.06s" href="https://github.com/Peterleixx/Agent_Context_OS" target="_blank" rel="noopener">
-        <div class="repo-top"><span class="lang"><i style="background:#3572a5"></i>Python</span><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.71 1.71.75.75 0 0 1-1.06 1.06A2.49 2.49 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.71A2.49 2.49 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.09a.25.25 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"/></svg></div>
+        <div class="repo-top"><span class="lang-tag"><i style="background:#3572a5"></i>Python</span><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.71 1.71.75.75 0 0 1-1.06 1.06A2.49 2.49 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.71A2.49 2.49 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.09a.25.25 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"/></svg></div>
         <h3>Agent_Context_OS <span class="ext">↗</span></h3>
-        <p>Codex skills and a local app for building a Markdown-first “PersonaVault” — a local persona context built from authorised personal material, started in two commands.</p>
+        <p data-i18n="os.b">Codex skills and a local app for building a Markdown-first “PersonaVault” — a local persona context built from authorised personal material, started in two commands.</p>
       </a>
     </div>
   </div>
@@ -478,46 +549,45 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;position:relative;z-
 <section class="sec" id="experience">
   <div class="wrap">
     <div class="sec-head rv">
-      <div class="eyebrow"><span>05</span> Experience</div>
-      <div><h2>Where I’ve <em>shipped.</em></h2></div>
+      <div class="eyebrow"><span>05</span> <b data-i18n="exp.eb">Experience</b></div>
+      <div><h2 data-i18n="exp.h2">Where I’ve <em>shipped.</em></h2></div>
     </div>
     <div class="tl">
       <div class="tl-row rv">
-        <div class="when">2024 — Present</div>
-        <div><h3>4Paradigm<span class="zh">第四范式</span></h3><div class="pos">AI Native Application &amp; Platform Tech Lead</div>
-          <p class="sum">Tech lead and product planner for Darvin; built the company-level AI code-review audit agent; built a deployment framework that helps algorithm scientists ship models to heterogeneous domestic compute clusters and edge devices.</p></div>
+        <div class="when" data-i18n="e1w">2024 — Present</div>
+        <div><h3 data-i18n="e1h">4Paradigm<span class="zh">第四范式</span></h3><div class="pos" data-i18n="e1p">AI Native Application &amp; Platform Tech Lead</div>
+          <p class="sum" data-i18n="e1s">Tech lead and product planner for Darvin; built the company-level AI code-review audit agent; built a deployment framework that helps algorithm scientists ship models to heterogeneous domestic compute clusters and edge devices.</p></div>
         <div class="chipset"><span class="chip">Agents</span><span class="chip">K8s</span><span class="chip">Eval</span></div>
       </div>
       <div class="tl-row rv">
         <div class="when">2023.11 — 2024</div>
-        <div><h3>Huawei<span class="zh">华为</span></h3><div class="pos">AI LLM / Python / Software Integration Engineer</div>
-          <p class="sum">AI for CI/CD on 5G / LTE products: function calling, RAG and rule engines for builds and alerting; workflow automation saving ~60 people-equivalent per year; code-quality gates.</p></div>
+        <div><h3 data-i18n="e2h">Huawei<span class="zh">华为</span></h3><div class="pos" data-i18n="e2p">AI LLM / Python / Software Integration Engineer</div>
+          <p class="sum" data-i18n="e2s">AI for CI/CD on 5G / LTE products: function calling, RAG and rule engines for builds and alerting; workflow automation saving ~60 people-equivalent per year; code-quality gates.</p></div>
         <div class="chipset"><span class="chip">RAG</span><span class="chip">Python</span><span class="chip">CI/CD</span></div>
       </div>
       <div class="tl-row rv">
         <div class="when">2022.11 — 2023.09</div>
-        <div><h3>Yuandian Gongzhen<span class="zh">元点共振科技</span></h3><div class="pos">Python Software Engineer</div>
-          <p class="sum">Led a FastAPI user microservice and SDK; AWS DynamoDB / S3 for metadata and media; CI/CD with GitHub Actions to Elastic Beanstalk.</p></div>
+        <div><h3 data-i18n="e3h">Yuandian Gongzhen<span class="zh">元点共振科技</span></h3><div class="pos" data-i18n="e3p">Python Software Engineer</div>
+          <p class="sum" data-i18n="e3s">Led a FastAPI user microservice and SDK; AWS DynamoDB / S3 for metadata and media; CI/CD with GitHub Actions to Elastic Beanstalk.</p></div>
         <div class="chipset"><span class="chip">FastAPI</span><span class="chip">AWS</span></div>
       </div>
       <div class="tl-row rv">
         <div class="when">2020.05 — 2022.08</div>
-        <div><h3>Early backend internships</h3><div class="pos">Java / Spring Boot</div>
-          <p class="sum">Exchange-data extraction and scheduling with PostgreSQL and Redis distributed locks; an inventory-control system automating stock tracking and order processing.</p></div>
+        <div><h3 data-i18n="e4h">Early backend internships</h3><div class="pos">Java / Spring Boot</div>
+          <p class="sum" data-i18n="e4s">Exchange-data extraction and scheduling with PostgreSQL and Redis distributed locks; an inventory-control system automating stock tracking and order processing.</p></div>
         <div class="chipset"><span class="chip">Java</span><span class="chip">Redis</span></div>
       </div>
     </div>
 
     <div class="sec-head rv" style="margin-top:120px">
-      <div class="eyebrow"><span>06</span> Education</div>
-      <div><h2>Foundations.</h2></div>
+      <div class="eyebrow"><span>06</span> <b data-i18n="edu.eb">Education</b></div>
+      <div><h2 data-i18n="edu.h2">Foundations.</h2></div>
     </div>
     <div class="tl">
       <div class="tl-row rv">
         <div class="when">2019 — 2023</div>
-        <div><h3>The Ohio State University<span class="zh">俄亥俄州立大学</span></h3><div class="pos">B.S. Computer &amp; Information Science</div>
-          <p class="sum">Data structures &amp; algorithms · Object-oriented software engineering · Machine learning · Mobile app development · Computer vision · Network security</p></div>
-        
+        <div><h3 data-i18n="edu.h">The Ohio State University<span class="zh">俄亥俄州立大学</span></h3><div class="pos" data-i18n="edu.p">B.S. Computer &amp; Information Science</div>
+          <p class="sum" data-i18n="edu.s">Data structures &amp; algorithms · Object-oriented software engineering · Machine learning · Mobile app development · Computer vision · Network security</p></div>
       </div>
     </div>
   </div>
@@ -525,12 +595,12 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;position:relative;z-
 
 <section class="contact" id="contact">
   <div class="wrap">
-    <h2 class="rv">Let’s build something <em>reliable.</em></h2>
-    <p class="rv" style="--d:.06s">Open to conversations about AI agents, agent platforms, enterprise AI delivery and product-minded engineering leadership.</p>
+    <h2 class="rv" data-i18n="ct.h2">Let’s build something <em>reliable.</em></h2>
+    <p class="rv" style="--d:.06s" data-i18n="ct.p">Open to conversations about AI agents, agent platforms, enterprise AI delivery and product-minded engineering leadership.</p>
     <div class="ctas rv" style="--d:.12s">
       <a class="btn btn-primary" href="mailto:peterlei001123@gmail.com">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
-        Email me</a>
+        <span data-i18n="cta.email">Email me</span></a>
       <a class="btn btn-ghost" href="https://github.com/Peterleixx" target="_blank" rel="noopener">GitHub <span class="arrow">↗</span></a>
     </div>
     <div class="mail rv" style="--d:.16s"><a href="mailto:peterlei001123@gmail.com">peterlei001123@gmail.com</a></div>
@@ -540,14 +610,36 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;position:relative;z-
 
 <footer>
   <div class="wrap foot">
-    <span>© <span id="y">2026</span> Peter Lei · 雷翔兮</span>
-    <nav><a href="https://github.com/Peterleixx" target="_blank" rel="noopener">GitHub</a><a href="mailto:peterlei001123@gmail.com">Email</a><a href="#top">Back to top ↑</a></nav>
+    <span>© <span id="y">2026</span> <span data-i18n="ft.name">Peter Lei · 雷翔兮</span></span>
+    <nav><a href="https://github.com/Peterleixx" target="_blank" rel="noopener">GitHub</a><a href="mailto:peterlei001123@gmail.com" data-i18n="ft.email">Email</a><a href="Peter-Lei-Resume-CN.pdf" target="_blank" rel="noopener" data-i18n="ft.resume">Résumé (PDF, 中文)</a><a href="#top" data-i18n="ft.top">Back to top ↑</a></nav>
   </div>
 </footer>
 
 <script>
 (function(){
-  var d=document.documentElement; d.classList.add('js');
+  var d=document.documentElement;
+  var ZH={"brand": "雷翔兮 <span class=\"zh\">Peter Lei</span>", "nav.work": "项目", "nav.now": "进行中", "nav.exp": "经历", "nav.contact": "联系", "nav.cta": "联系我", "hero.pill": "正在构建本地优先的个人 Agent", "hero.h1": "让 AI 系统<br><em>可靠地</em>落地。", "hero.lede": "我是<strong>雷翔兮</strong>，<strong>第四范式</strong> AI Native 应用与平台技术负责人。我希望做一个这样的技术构建者：设计可靠的系统，理解用户的真实问题，并用产品去验证——从 Agent Harness、评测闭环，到其下的基础设施。", "hero.sub": "<span class=\"en-sub\">Peter Lei · Design reliable systems, understand real problems.</span>", "cta.email": "发邮件", "cta.resume": "下载简历 <span class=\"btn-note\">PDF</span>", "tr.task": "任务", "tr.brief": "“为新品线准备一套发布物料”", "tr.1": "理解任务", "tr.1r": "✓ 已规划", "tr.2": "读取品牌资料", "tr.2r": "✓ 已载入", "tr.3": "调用工具", "tr.3r": "文案 · 图片 · 视频", "tr.4": "检查结果", "tr.4r": "评估中 ●", "tr.5": "记录反馈", "tr.5r": "→ 写入记忆", "tr.loop": "下一轮从用户的修改意见开始", "tr.cap": "示意 · Agent Harness 闭环", "m1v": "3<small>年</small>", "m1k": "在多仓库、多角色的企业级项目中从事 AI Agent 与 AI 应用工程", "m2v": "千万级<small>RMB</small>", "m2k": "AI 代码 Review 审计平台支撑的研发费用节省", "m3v": "~60<small>人/年</small>", "m3k": "华为参数资料自动化流水线节省的重复性投入", "m4v": "~9<small>个通道</small>", "m4k": "BrandNative Agent Harness 中配置的模型通道", "focus.eb": "方向", "focus.h2": "产品思维与<em>系统工程</em>的交汇处。", "c1h": "Agent Runtime 与 Harness", "c1p": "管理任务拆解、模型调用、结果候选、质量检查、错误重试和运行记录，让多步骤 Agent 可追踪、可复现、可调试。", "c2h": "MCP、Tool Calling 与多模型网关", "c2p": "按任务类型调度不同模型，让每个模型负责自己擅长的环节，并通过稳定、结构化的工具接口提供能力。", "c3h": "评测与 Human-in-the-loop", "c3p": "人工标注、审核、自动打分与反馈回流，把模型输出变成可度量、可信任的结果。", "c4h": "AI Coding Workflow", "c4p": "需求拆解 → 接口契约 → 垂直切片 → AI 辅助编码 → 人工 Review → 自动化验收，适合人类工程师与 coding agent 并行协作。", "c5h": "AI Infrastructure", "c5p": "K8s 任务运行时、Helm 模板部署、命名空间隔离，以及面向 GPU / NPU / 国产算力的异构调度。", "c6h": "产品负责", "c6p": "从用户角色、业务闭环、商业可行性和工程复杂度共同判断优先级，而不只看技术上是否有趣。", "work.eb": "精选项目", "work.h2": "从 demo 走向<em>可部署</em>。", "work.p": "几个能说明我工作方式的项目：架构设计、产品判断，以及两者之间那些不起眼、却决定成败的可靠性工作。", "d.tag": "第四范式 × Gradient Network", "d.role": "实际主责技术负责人 + 产品规划", "d.h3": "Darvin 去中心化 AI 计算与评测平台", "d.desc": "第四范式与 Gradient Network 共同孵化的 AI Infrastructure 项目，把 AI 任务、数据标注、模型评测、K8s 算力调度和链上激励抽象为可复用的通用任务子网，推动项目从 demo 走向可部署、可评测、可运营的工程平台。", "d.ul": "<li>主导构建人机协同的评测数据平台：异步任务流、审核流、webhook 回调、短期授权 token、幂等结果拉取与自动打分回流。</li><li>围绕任务发布、模型提交、人工标注、结果审核、算力执行和平台运营等角色，设计多租户模型、RBAC 权限、身份映射、审计日志和状态机。</li><li>规划通用 AI 任务运行时与多集群统一调度，适配不同 GPU / NPU / 国产算力环境。</li><li>较早提出面向 Agent 使用的 CLI 体系：稳定命令、结构化输出、步骤化报告，为自然语言 Agent 执行部署与运维打基础。</li>", "chip.eval": "评测平台", "d.foot": "已跑通端到端闭环：任务创建 → 数据绑定 → 人工标注 → 审核 → 自动评分 → 结果展示", "cr.tag": "第四范式 · 公司级", "cr.role": "独立搭建", "cr.h3": "AI 代码 Review 审计 Agent", "cr.desc": "面向企业研发治理的 AI 代码审计 Agent，将代码提交理解、风险判断、人工复核和管理看板串成自动化工作流。", "cr.ul": "<li>以 CodeQwen1.5-7B-Chat 这类 7B 级代码模型承担语义摘要与风险解释，静态规则先做确定性过滤，降低批量审计的推理成本。</li><li>风险分级、问题归因与人工确认；接入内部代码仓库和工程流水线，支持批量扫描与增量分析。</li>", "cr.out": "<b>支撑千万级</b>研发费用节省。", "bn.tag": "个人项目 · 2026", "bn.role": "独立设计与实现", "bn.desc": "让 AI 像一个懂品牌的营销助手一样工作：先理解品牌资料，再根据任务自动选择文案、图片、音乐、视频等模型生成素材，并在用户反馈后持续改进。", "bn.ul": "<li>完整流程：理解任务 → 读取品牌资料 → 调用合适工具 → 检查结果 → 记录反馈。</li><li>统一 Harness 管理任务拆解、模型调用、结果候选、质量检查、错误重试和运行记录，配置约 9 个模型通道（含结果评估模型）。</li>", "bn.chips": "<span class=\"chip\">多模态</span><span class=\"chip\">MCP</span><span class=\"chip\">评测闭环</span><span class=\"chip\">Tauri</span>", "hw.tag": "华为 · 2023 – 2024", "hw.role": "AI / Python / 软件集成", "hw.h3": "电信级产品的 AI for CI/CD", "hw.desc": "2023 年底，大模型工程化仍处早期。我围绕 5G / LTE 产品版本构建、告警分析和流水线看护，探索 function calling、模型路由、RAG 与规则引擎结合的工程方案。", "hw.ul": "<li>主导无线产品北向参数资料自动化制作工程，结合自然语言需求解析、参数模板与任务编排，在华为云龙平台搭建一键式流水线。</li><li>将接口文档、版本记录、问题单和构建日志整理为可检索语料，构建面向工程问题的知识检索与问答能力。</li><li>部署代码规范检查门禁，结合静态检查工具、规则配置与流水线准入机制。</li>", "hw.out": "每年节省约 <b>60 人规模</b>的重复性资料制作与校验投入。", "now.eb": "进行中", "now.h2": "我<em>此刻</em>在做的事。", "now.status": "进行中", "now.h3": "个人 Agent Runtime Lab <em>— Android v0.1</em>", "now.p": "一个本地优先的个人 Agent，先从 Android 端执行做起。目标是一个真正可以托付的 Agent：边界清晰、每一步可观测，在关键环节保留人的确认。", "now.road": "<div class=\"active\"><span class=\"mono\">现在</span><b>Android 执行运行时</b> — v0.1，早期实验阶段</div><div><span class=\"mono\">下一步</span>端侧操作的 Harness、评测与安全护栏</div><div><span class=\"mono\">之后</span>更广泛的本地优先个人工作流</div>", "now.ex": "探索中", "now.vh": "可视化 AI 文档", "now.vp": "探索 AI 生成的文档如何变得更直观、更结构化，也更值得阅读。", "now.q": "“设计可靠的系统，理解用户的问题，验证产品。”<span class=\"zh en-sub\">RELIABLE · UNDERSTAND · VALIDATE</span>", "os.eb": "开源", "os.h2": "来自<em>工作台</em>。", "os.a": "基于可复用 Agent 与反馈闭环的多模态 AI 创作项目，即 BrandAgent / BrandNative 的 monorepo：Tauri + React 桌面端、品牌资料管理、内容 Agent 预设与生成网关。", "os.b": "一套 Codex 技能与本地应用，用已授权的本地资料构建 Markdown-first 的「PersonaVault」个人上下文，两行命令即可启动。", "exp.eb": "经历", "exp.h2": "我<em>交付过</em>的地方。", "e1w": "2024 — 至今", "e1h": "第四范式<span class=\"zh\">4Paradigm</span>", "e1p": "AI Native 应用与平台技术负责人", "e1s": "Darvin 实际主责技术负责人与产品规划；独立搭建公司级 AI 代码 Review 审计平台；建设 AI 算法部署框架，帮助算法科学家将模型部署到异构国产算力集群及端侧设备。", "e2h": "华为技术有限公司<span class=\"zh\">Huawei</span>", "e2p": "AI 大语言模型 / Python / 软件集成工程师", "e2s": "5G / LTE 产品的 AI for CI/CD 早期实践：function calling、RAG 与规则引擎用于版本构建和智能告警；参数资料自动化流水线每年节省约 60 人规模投入；代码规范质量门禁。", "e3h": "元点共振科技<span class=\"zh\">Yuandian Gongzhen</span>", "e3p": "Python 软件开发工程师", "e3s": "使用 Python FastAPI 主导用户微服务与 SDK 开发；AWS DynamoDB / S3 管理用户元数据与媒体；GitHub Actions CI/CD 部署至 Elastic Beanstalk。", "e4h": "早期 Java / 后端实习", "e4s": "使用 Spring Boot 设计交易所数据抽取与调度系统（PostgreSQL、Redis 分布式锁）；构建库存控制系统，自动化库存跟踪与订单处理。", "edu.eb": "教育", "edu.h2": "基础。", "edu.h": "美国俄亥俄州立大学<span class=\"zh\">The Ohio State University</span>", "edu.p": "计算机和信息科学学士", "edu.s": "数据结构与算法 · 面向对象软件工程 · 机器学习 · 移动应用开发 · 计算机视觉 · 网络安全", "ct.h2": "一起做点<em>可靠</em>的东西。", "ct.p": "欢迎交流 AI Agent、Agent 平台、企业 AI 落地，以及产品思维型工程负责人相关的机会。", "ft.name": "雷翔兮 · Peter Lei", "ft.email": "邮箱", "ft.resume": "简历（PDF）", "ft.top": "返回顶部 ↑"};
+  var META={
+    en:{title:'Peter Lei · 雷翔兮 — AI Native Engineer & Tech Lead',desc:'Peter Lei (雷翔兮) — AI-native application & platform tech lead. Agent harnesses, eval loops, AI coding workflows and the infrastructure underneath.'},
+    zh:{title:'雷翔兮 Peter Lei — AI Native 应用与平台技术负责人',desc:'雷翔兮（Peter Lei），第四范式 AI Native 应用与平台技术负责人。Agent Harness、评测闭环、AI 编程工作流，以及其下的基础设施。'}
+  };
+  var nodes=[].slice.call(document.querySelectorAll('[data-i18n]'));
+  nodes.forEach(function(n){n._en=n.innerHTML});
+  var md=document.querySelector('meta[name="description"]');
+  function apply(l,save){
+    if(l!=='zh')l='en';
+    nodes.forEach(function(n){var v=l==='zh'?ZH[n.getAttribute('data-i18n')]:n._en;if(v!=null&&n.innerHTML!==v)n.innerHTML=v});
+    d.lang=l==='zh'?'zh-CN':'en'; d.setAttribute('data-lang',l);
+    document.title=META[l].title; if(md)md.setAttribute('content',META[l].desc);
+    [].forEach.call(document.querySelectorAll('.lang button'),function(b){b.setAttribute('aria-pressed',b.getAttribute('data-lang')===l?'true':'false')});
+    if(save){
+      try{localStorage.setItem('lang',l)}catch(e){}
+      try{var u=new URL(location.href);if(u.searchParams.has('lang')){u.searchParams.set('lang',l);history.replaceState(null,'',u)}}catch(e){}
+    }
+  }
+  apply(d.getAttribute('data-lang'),false);
+  [].forEach.call(document.querySelectorAll('.lang button'),function(b){b.addEventListener('click',function(){apply(b.getAttribute('data-lang'),true)})});
+
   var y=document.getElementById('y'); if(y) y.textContent=new Date().getFullYear();
   var nav=document.querySelector('header.nav');
   var onS=function(){nav.classList.toggle('scrolled',window.scrollY>8)}; onS(); addEventListener('scroll',onS,{passive:true});
@@ -558,6 +650,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;position:relative;z-
   } else els.forEach(function(el){el.classList.add('in')});
   document.querySelectorAll('.card').forEach(function(c){c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')})});
 })();
+
 </script>
 </body>
 </html>
